@@ -1,7 +1,7 @@
 name: Check models
 
 on:
-  workflow_dispatch
+  workflow_dispatch:   # notice the colon at the end
   schedule:
     - cron: "*/5 * * * *"
 

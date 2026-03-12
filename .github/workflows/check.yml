@@ -1,0 +1,31 @@
+name: Check models
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+
+jobs:
+  run-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install packages
+        run: pip install -r requirements.txt
+
+      - name: Run script
+        run: python check.py
+
+      - name: Commit RSS
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@example.com"
+          git add feed.xml state.json
+          git commit -m "update rss" || echo "no changes"
+          git push

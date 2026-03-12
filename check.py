@@ -49,5 +49,11 @@ for username in models:
 if new_entries:
     fg.rss_file(RSS_FILE)
 
+# Always write feed.xml, even if no new live entries
+fg.rss_file(RSS_FILE)
+
+with open(STATE_FILE, "w") as f:
+    json.dump(state, f)
+
 with open(STATE_FILE, "w") as f:
     json.dump(state, f)
